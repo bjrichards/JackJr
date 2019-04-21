@@ -1,0 +1,70 @@
+material buildingMaterials/building_plain
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture basicBuilding.png
+				scale 1 1
+			}
+		}
+	}
+}
+material buildingMaterials/building_Ladder
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture ladderBuilding.png
+				scale 1 1
+			}
+		}
+	}
+}
+material buildingMaterials/building_right_window
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture rightWindowBuilding.png
+				scale 1 0.3
+			}
+		}
+	}
+}
+material buildingMaterials/lrWindowbuilding
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture lrWindowBuilding.png
+				scale 1 1
+			}
+		}
+	}
+}
+material buildingMaterials/background
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture sky.png
+				scale 1 1
+			}
+		}
+	}
+}

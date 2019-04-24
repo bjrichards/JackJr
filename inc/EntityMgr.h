@@ -4,7 +4,9 @@
 #include <vector>
 #include <Mgr.h>
 #include <Entity381.h>
+#include <FlyingEntity381.h>
 #include <Types381.h>
+#include <Player.h>
 
 class EntityMgr: public Mgr {
 public:
@@ -14,7 +16,9 @@ public:
   //Engine *engine;
 
   std::vector<Entity381*> entities;
+  Player* player;
   Entity381* selectedEntity;
+  FlyingEntity381* selectedFlyingEntity;
   int selectedEntityIndex;
 
 

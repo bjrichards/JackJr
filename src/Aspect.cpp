@@ -21,13 +21,6 @@ void Aspect::Tick(float dt){
 
 }
 
-void Aspect::AddCommand(Command* c){
-
-}
-
-void Aspect::SetCommand(Command* c){
-
-}
 
 
 

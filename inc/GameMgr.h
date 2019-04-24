@@ -19,6 +19,7 @@ public:
 	void LoadLevel();
 
 	void MakeGround();
+	void MakeBuildings();
 	void MakeSky();
 	void MakeEntities();
 

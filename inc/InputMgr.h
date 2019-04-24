@@ -48,13 +48,13 @@ public:
 	void LoadLevel();
 
 	float keyboardTimer;
-	const float keyTime = 0.1f;
+	//const static float keyTime = 0.1f;
+	static constexpr float keyTime = 0.1f;
 	float deltaDesiredSpeed, deltaDesiredHeading, deltaDesiredAltitude;
 	void UpdateCamera(float dt);
 	void UpdateVelocityAndSelection(float dt);
 
 	void HandleMouseSelection(const OIS::MouseEvent& me);
-	void HandleMouseUnitAISelection(const OIS::MouseEvent& me);
 	float selectionDistanceSquaredThreshold;
 
 

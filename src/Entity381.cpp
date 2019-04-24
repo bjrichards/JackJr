@@ -7,9 +7,8 @@
 
 #include <GfxMgr.h>
 
-#include <Entity381.h>
-#include <Physics2D.h>
-#include <UnitAI.h>
+#include<Entity381.h>
+#include<Physics2D.h>
 
 std::string IntToString(int x){
 	char tmp[10000];
@@ -40,14 +39,18 @@ Entity381::Entity381(Engine *engine, Ogre::Vector3 pos, int ident){
 	aspects.push_back((Aspect*) phx);
 	Renderable * renderable = new Renderable(this);
 	aspects.push_back((Aspect*)renderable);
-	UnitAI * unitAI = new UnitAI(this);
-	aspects.push_back((Aspect*)unitAI);
 
 	this->acceleration = 0;
 	this->desiredHeading = this->heading = 0;
 	this->turnRate = 0;
 	this->desiredSpeed = this->speed = 0;
 	this->minSpeed = this->maxSpeed = 0;
+
+	this->playSound = false;
+
+	//this->soundFile = "bensound-goinghigher.wav";
+
+	this->auioId = 0;
 
 }
 
@@ -69,22 +72,22 @@ void Entity381::Tick(float dt){
 	}
 }
 
-////-------------------------------------------------------------------------------------------------------------------------------
-//DDG51::DDG51(Engine *engine, Ogre::Vector3 pos, int ident):
-//		Entity381(engine, pos, ident){
-//
-//	meshfilename = "ddg51.mesh";
-//	entityType = DDG51Type;
-//	this->minSpeed = 0;
-//	this->maxSpeed = 16.0f;//meters per second...
-//	this->acceleration = 5.0f; // fast
-//	this->turnRate = 20.0f; //4 degrees per second
-//	std::cout << "Created: " << this->name << std::endl;
-//}
-//
-//DDG51::~DDG51(){
-//
-//}
+//-------------------------------------------------------------------------------------------------------------------------------
+DDG51::DDG51(Engine *engine, Ogre::Vector3 pos, int ident):
+		Entity381(engine, pos, ident){
+
+	meshfilename = "ddg51.mesh";
+	entityType = DDG51Type;
+	this->minSpeed = 0;
+	this->maxSpeed = 16.0f;//meters per second...
+	this->acceleration = 5.0f; // fast
+	this->turnRate = 20.0f; //4 degrees per second
+	std::cout << "Created: " << this->name << std::endl;
+}
+
+DDG51::~DDG51(){
+
+}
 
 //-------------------------------------------------------------------------------------------------------------------------------
 Carrier::Carrier(Engine *engine, Ogre::Vector3 pos, int ident):
@@ -100,51 +103,51 @@ Carrier::Carrier(Engine *engine, Ogre::Vector3 pos, int ident):
 Carrier::~Carrier(){
 
 }
-////-------------------------------------------------------------------------------------------------------------------------------
-//
-//SpeedBoat::SpeedBoat(Engine *engine, Ogre::Vector3 pos, int ident):
-//		Entity381(engine, pos, ident){
-//	meshfilename = "cigarette.mesh";
-//	entityType = SpeedBoatType;
-//	this->minSpeed = 0;
-//	this->maxSpeed = 30.0f;//meters per second...
-//	this->acceleration = 5.0f; // slow
-//	this->turnRate = 30.0f; //2 degrees per second
-//}
-//
-//SpeedBoat::~SpeedBoat(){
-//
-//}
-////-------------------------------------------------------------------------------------------------------------------------------
-//
-//Frigate::Frigate(Engine *engine, Ogre::Vector3 pos, int ident):
-//		Entity381(engine, pos, ident){
-//	meshfilename = "sleek.mesh";
-//	entityType = FrigateType;
-//	this->minSpeed = 0;
-//	this->maxSpeed = 15.0f;//meters per second...
-//	this->acceleration = 5.0f; // slow
-//	this->turnRate = 20.0f; //2 degrees per second
-//}
-//
-//Frigate::~Frigate(){
-//
-//}
-//
-////-------------------------------------------------------------------------------------------------------------------------------
-//Alien::Alien(Engine *engine, Ogre::Vector3 pos, int ident):
-//		Entity381(engine, pos, ident){
-//	meshfilename = "alienship.mesh";
-//	entityType = AlienType;
-//	this->minSpeed = 0;
-//	this->maxSpeed = 50.0f;//meters per second...
-//	this->acceleration = 10.0f; // slow
-//	this->turnRate = 40.0f; //2 degrees per second
-//}
-//
-//Alien::~Alien(){
-//
-//}
+//-------------------------------------------------------------------------------------------------------------------------------
+
+SpeedBoat::SpeedBoat(Engine *engine, Ogre::Vector3 pos, int ident):
+		Entity381(engine, pos, ident){
+	meshfilename = "cigarette.mesh";
+	entityType = SpeedBoatType;
+	this->minSpeed = 0;
+	this->maxSpeed = 30.0f;//meters per second...
+	this->acceleration = 5.0f; // slow
+	this->turnRate = 30.0f; //2 degrees per second
+}
+
+SpeedBoat::~SpeedBoat(){
+
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+
+Frigate::Frigate(Engine *engine, Ogre::Vector3 pos, int ident):
+		Entity381(engine, pos, ident){
+	meshfilename = "sleek.mesh";
+	entityType = FrigateType;
+	this->minSpeed = 0;
+	this->maxSpeed = 15.0f;//meters per second...
+	this->acceleration = 5.0f; // slow
+	this->turnRate = 20.0f; //2 degrees per second
+}
+
+Frigate::~Frigate(){
+
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------
+Alien::Alien(Engine *engine, Ogre::Vector3 pos, int ident):
+		Entity381(engine, pos, ident){
+	meshfilename = "alienship.mesh";
+	entityType = AlienType;
+	this->minSpeed = 0;
+	this->maxSpeed = 50.0f;//meters per second...
+	this->acceleration = 10.0f; // slow
+	this->turnRate = 40.0f; //2 degrees per second
+}
+
+Alien::~Alien(){
+
+}
 //-------------------------------------------------------------------------------------------------------------------------------
 
 

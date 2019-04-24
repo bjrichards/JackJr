@@ -4,7 +4,7 @@
 #include<OgreVector3.h>
 
 class Entity381;    //Forward declaration of the Entity381 class
-class Command;
+
 class Aspect
 {
 public:
@@ -14,8 +14,6 @@ public:
   Entity381* entity;
 
   virtual void Tick(float dt);
-  virtual void AddCommand(Command* c);
-  virtual void SetCommand(Command* c);
 
 
 protected:

@@ -11,6 +11,10 @@
 #include <OgreRoot.h>
 #include <OgreWindowEventUtilities.h>
 
+#include <OgreOverlaySystem.h>
+
+#include <Sample.h>
+#include <SdkTrays.h>
 
 #include <Mgr.h>
 
@@ -32,9 +36,13 @@ public:
 	void Stop();
 
 	void MakeBuildings();
+	void MakeGround();
+	Ogre::Plane oceanSurface;
+
 	Ogre::Plane leftBuilding;
 	Ogre::Plane rightBuilding;
 	Ogre::Plane background;
+
 	void MakeSky();
 
 	//Ogre related stuff
@@ -44,6 +52,9 @@ public:
 	Ogre::RenderWindow* mWindow;
 	Ogre::SceneManager* mSceneMgr;
 	Ogre::Camera* mCamera;
+
+	Ogre::SceneNode *cameraNode, *pitchNode;
+	//SdkTrayManager* mTrayMgr;
 
 };
 

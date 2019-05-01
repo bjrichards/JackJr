@@ -18,6 +18,7 @@
 
 #include <SdkTrays.h>
 
+
 class UiMgr : public Mgr, public Ogre::FrameListener, public OIS::KeyListener, public OIS::MouseListener, public Ogre::WindowEventListener, public OgreBites::SdkTrayListener
 {
 private:
@@ -52,6 +53,10 @@ public:
 	OgreBites::Label *infoLabel;
 	OgreBites::Label *infoLabel2;
 	OgreBites::Label *infoLabel3;
+//	OgreBites::ProgressBar *Timer;
+	float time = 100;
+	//bool sfxCheck = true;
+
 };
 
 #endif /* INC_UIMGR_H_ */

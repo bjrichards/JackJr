@@ -12,8 +12,7 @@
 #include <EntityMgr.h>
 #include <GameMgr.h>
 #include <UiMgr.h>
-
-#include <Utils.h>
+#include <Building.h>
 
 InputMgr::InputMgr(Engine *engine) : Mgr(engine), OIS::KeyListener(), OIS::MouseListener() {
 
@@ -48,7 +47,7 @@ void InputMgr::Init(){
 		pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
 		#elif defined OIS_LINUX_PLATFORM
 		pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-		pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
+		pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
 		pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("true")));
 		pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
 		#endif
@@ -99,67 +98,14 @@ void InputMgr::Tick(float dt){
 }
 
 void InputMgr::UpdateCamera(float dt){
-	float move = 400.0f;
-	float rotate = 0.1f;
 
-	Ogre::Vector3 dirVec = Ogre::Vector3::ZERO;
-		 if (mKeyboard->isKeyDown(OIS::KC_LSHIFT))
-		 {
-			 move *= 2;
-		 }
-
-		  if (mKeyboard->isKeyDown(OIS::KC_W))
-		    dirVec.z -= move;
-
-		  if (mKeyboard->isKeyDown(OIS::KC_S))
-		    dirVec.z += move;
-
-		  if (mKeyboard->isKeyDown(OIS::KC_R))
-		    dirVec.y += move;
-
-		  if (mKeyboard->isKeyDown(OIS::KC_F))
-			  if (engine->gameMgr->cameraNode->getPosition().y > 10)
-				  dirVec.y -= move;
-
-		  if (mKeyboard->isKeyDown(OIS::KC_A))
-		  {
-		      dirVec.x -= move;
-		  }
-
-		  if (mKeyboard->isKeyDown(OIS::KC_D))
-		  {
-		      dirVec.x += move;
-		  }
-			if (mKeyboard->isKeyDown(OIS::KC_Q))
-			{
-			  engine->gameMgr->cameraNode->yaw(Ogre::Degree(5 * rotate));
-			}
-		  if (mKeyboard->isKeyDown(OIS::KC_E))
-		  {
-			  engine->gameMgr->cameraNode->yaw(Ogre::Degree(-5 * rotate));
-		  }
-		  if (mKeyboard->isKeyDown(OIS::KC_Z))
-		  {
-			  engine->gameMgr->cameraNode->pitch(Ogre::Degree(5 * rotate));
-		  }
-		  if (mKeyboard->isKeyDown(OIS::KC_X))
-		  {
-			  engine->gameMgr->cameraNode->pitch(Ogre::Degree(-5 * rotate));
-		  }
-
-		  engine->gameMgr->cameraNode->translate(dirVec * dt, Ogre::Node::TS_LOCAL);
 	}
 
 void InputMgr::UpdateVelocityAndSelection(float dt){
 	keyboardTimer -= dt;
-
-	if ((keyboardTimer < 0) && mKeyboard->isKeyDown(OIS::KC_NUMPAD8)){
-		keyboardTimer = keyTime;
-		engine->entityMgr->selectedEntity->desiredSpeed += deltaDesiredSpeed;
-	}
-	if (mKeyboard->isKeyDown(OIS::KC_RIGHT))
+	if (mKeyboard->isKeyDown(OIS::KC_D))
 		engine->entityMgr->player->MoveRight(dt);
-	else if (mKeyboard->isKeyDown(OIS::KC_LEFT))
+	else if (mKeyboard->isKeyDown(OIS::KC_A))
 		engine->entityMgr->player->MoveLeft(dt);
 	if (mKeyboard->isKeyDown(OIS::KC_SPACE))
 		engine->entityMgr->player->Jump();
@@ -204,21 +150,39 @@ void InputMgr::HandleMouseSelection(const OIS::MouseEvent &me){
 	const OIS::MouseState &ms = mMouse->getMouseState();
 	int index = -1;
 	Ogre::Ray mouseRay = engine->gfxMgr->mCamera->getCameraToViewportRay(ms.X.abs/(float) ms.width, ms.Y.abs/(float)ms.height);
-	std::pair<bool, float> result = mouseRay.intersects(engine->gfxMgr->oceanSurface);
-	if(result.first){
+	std::pair<bool, float> result = mouseRay.intersects(engine->gfxMgr->background);
+	if(result.first && (engine->entityMgr->seedCount != 0)){
+		std::cout << "Got Here" << std::endl;
 		Ogre::Vector3 posUnderMouse = mouseRay.getPoint(result.second);
 		float minDistanceSquared = FLT_MAX;
 		float distanceSquared; //because squareroot is expensive
-		for(unsigned int i = 0; i < engine->entityMgr->entities.size(); i++){
-			distanceSquared = posUnderMouse.squaredDistance(engine->entityMgr->entities[i]->position);
-			if (distanceSquared < selectionDistanceSquaredThreshold){
-				if (distanceSquared < minDistanceSquared){
-					index = i;
-					minDistanceSquared = distanceSquared;
-				}
+		for(unsigned int i = 0; i < engine->entityMgr->buildings.size(); i++){
+			distanceSquared = posUnderMouse.squaredDistance(engine->entityMgr->buildings[i]->position);
+			if (distanceSquared < minDistanceSquared && posUnderMouse.y < engine->entityMgr->buildings[i]->position.y + 650 && posUnderMouse.y > engine->entityMgr->buildings[i]->position.y - 650){
+				index = i;
+				minDistanceSquared = distanceSquared;
 			}
 		}
-		engine->entityMgr->Select(index);
+		if (index != -1)
+		{
+			std::cout << "Finished Loop" << std::endl;
+			Building* b = engine->entityMgr->buildings[index];
+			std::cout << index << std::endl;
+			std::cout << "Pointer be pointing" << std::endl;
+			if (posUnderMouse.x > b->position.x)
+			{
+				std::cout << "Creating New Vine" << std::endl;
+				engine->entityMgr->CreateNewVine(Ogre::Vector3(b->position.x + 520, posUnderMouse.y, 0), 0);
+				std::cout << "Vine Created" << std::endl;
+			}
+			else
+			{
+				std::cout << "Creating New Vine" << std::endl;
+				engine->entityMgr->CreateNewVine(Ogre::Vector3(b->position.x - 520, posUnderMouse.y, 0), 1);
+				std::cout << "Vine Created" << std::endl;
+			}
+			engine->entityMgr->seedCount--;
+		}
 	}
 }
 

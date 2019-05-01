@@ -28,7 +28,8 @@ namespace OgreSND {
     const int soundPerEnt = 3;      // max different sounds to randomly choose per entity
 	const int maxAudioBuffers = 63; // + 1 for background music
 	const int maxAudioSources = 15; // + 1 for background music
-	const std::string backgroundMusicFilename = "data/watercraft/sounds/bensound-goinghigher.wav";
+	const std::string backgroundMusicFilename = "data/watercraft/sounds/Arpanauts.wav";
+	//const std::string backgroundMusicFileName = "data/watercraft/sounds/bensound-goinghigher.wav";
 	///home/sushil/workspace/fe1/
 
 
@@ -64,7 +65,7 @@ namespace OgreSND {
 		//unsigned int scvId;
                 //unsigned int soundDictionary[FastEcslent::NENTITYTYPES];
                 std::vector <std::string> sourceDictionary;
-                
+
                 //First dimension holds types and inner one holds different sounds for that type
                 //int creationSoundsDictionary[FastEcslent::NENTITYTYPES][soundPerEnt];
                 int selectionSoundsDictionary[6][soundPerEnt];
@@ -76,7 +77,7 @@ namespace OgreSND {
 		//int firstIndexNotInUse(bool inUse[], int size);
 		int getEmptySourceIndex();
 		bool resetSource(ALuint sid);
-                
+
                 bool isEnabled;
 
 	public:
@@ -90,7 +91,7 @@ namespace OgreSND {
 		void tick(double dtime);
 		void releaseLevel();
 		void cleanup ();
-                
+
                 void enable();
                 void disable();
 
@@ -108,7 +109,10 @@ namespace OgreSND {
                 //bool playExplosionSound(FastEcslent::EntityType et, OgreGFX::GFXNode *gfxNode);
                 //bool playExplosionSound(OgreGFX::GFXNode *gfxNode);
                 bool playSelectionSound(Entity381 et);
-                
+
+        //Jumping
+        //bool SoundMgr::playJumping(FastEcslent::EntityType et, OgreGFX::GFXNode *gfxNode);
+
 		//specific for sound managers everywhere
 		bool loadAudio(std::string filename, int sid);
 		//bool loadAndBindAudio(std::string filename, bool loop, ALuint &audioId); //return +ive audioId or -ive error code
@@ -122,7 +126,7 @@ namespace OgreSND {
                 //bool registerBattleSound(FastEcslent::EntityType et, std::string filename);
                 //bool isEntityShip(FastEcslent::EntityType et);
                 bool initWatercraftSounds();
-                
+
 		bool reserveAudio(std::string filename, bool loop, unsigned int &alSourceInfoIndex);
 		bool releaseSource(ALuint audioId);
 		bool releaseSourceIndex(int sid);
@@ -133,9 +137,9 @@ namespace OgreSND {
         bool playAudio(ALuint audioId);
         bool playAudioSourceIndex(int sid, bool forceRestart );
         bool playAudioSourceIndex(int sid);
-        
+
         void copySoundState();
-        
+
         bool isAudioPlaying(ALuint audioId);
         bool stopAudio(ALuint audioID );
         bool stopAllAudio( void );
@@ -160,9 +164,9 @@ namespace OgreSND {
         bool setListenerDisposition( Ogre::Vector3 position, Ogre::Vector3 velocity, Ogre::Quaternion orientation );
 
 	};
-        
+
         //double volume;
-        
+
 
 
 }

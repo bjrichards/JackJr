@@ -17,10 +17,12 @@
 #include <OgreException.h>
 #include <OgrePlane.h>
 #include <OgreMeshManager.h>
+#include <OgreLight.h>
 
 #include <Engine.h>
 #include <GfxMgr.h>
 #include <EntityMgr.h>
+#include <Building.h>
 
 GfxMgr::GfxMgr(Engine *engine): Mgr(engine) {
 
@@ -30,6 +32,8 @@ GfxMgr::GfxMgr(Engine *engine): Mgr(engine) {
 	mWindow = 0;
 	mSceneMgr = 0;
 	mCamera = 0;
+	cameraNode = 0;
+	pitchNode = 0;
 	//oceanSurface(Ogre::Vector3::UNIT_Y, 0);
 #ifdef _DEBUG
   mResourcesCfg = "resources_d.cfg";
@@ -71,6 +75,7 @@ GfxMgr::GfxMgr(Engine *engine): Mgr(engine) {
   mCamera = mSceneMgr->createCamera("MainCam");
   mCamera->setPosition(0, 0, 600);
   mCamera->lookAt(mCamera->getOrientation().zAxis());
+//  mCamera->lookAt(mCamera->forward());
   mCamera->setNearClipDistance(1);
 
   Ogre::Viewport* vp = mWindow->addViewport(mCamera);
@@ -110,7 +115,7 @@ void GfxMgr::MakeSky(){
 		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 		//plane,
 		background,
-		2400, 2400, 5, 5,
+		2400, 3200, 5, 5,
 		true,
 		1, 1, 1,
 		Ogre::Vector3::UNIT_Y);
@@ -118,76 +123,36 @@ void GfxMgr::MakeSky(){
 	Ogre::Entity* b = engine->gfxMgr->mSceneMgr->createEntity("background");
 	Ogre::SceneNode* ba = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
 	ba->attachObject(b);
-	ba->setPosition(0, 0, 0);
+	ba->setPosition(0, 1540, -2);
 	b->setCastShadows(false);
 	b->setMaterialName("buildingMaterials/background");
 }
 
-void GfxMgr::MakeGround(){
-
-	//Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
-//	//Ogre::Plane oceanSurface(Ogre::Vector3::UNIT_Y, 0);
-//	//oceanSurface = plane;
-//	oceanSurface.normal = Ogre::Vector3::UNIT_Y;
-//	oceanSurface.d = 0;
-//	Ogre::MeshManager::getSingleton().createPlane(
-//	    "ocean",
-//	    Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-//	    //plane,
-//		oceanSurface,
-//	    15000, 15000, 20, 20,
-//	    true,
-//	    1, 1, 1,
-//	    Ogre::Vector3::UNIT_Z);
-//
-//	  Ogre::Entity* groundEntity = engine->gfxMgr->mSceneMgr->createEntity("ocean");
-//	  engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
-//	  groundEntity->setCastShadows(false);
-//	  //groundEntity->setMaterialName("Ocean2_HLSL_GLSL");
-//	  //groundEntity->setMaterialName("OceanHLSL_GLSL");
-//	  groundEntity->setMaterialName("Ocean2_Cg");
-//	  //groundEntity->setMaterialName("NavyCg");
-}
-
 void GfxMgr::MakeBuildings(){
 
-	leftBuilding.normal = Ogre::Vector3::UNIT_Z;
-	leftBuilding.d = 0;
+	engine->entityMgr->CreateNewBuilding(Ogre::Vector3(-750, 540, 0), 0);
+	engine->entityMgr->CreateNewBuilding(Ogre::Vector3(-750, 1740, 0), 0);
+	engine->entityMgr->CreateNewBuilding(Ogre::Vector3(750, 540, 0), 0);
+	engine->entityMgr->CreateNewBuilding(Ogre::Vector3(750, 1740, 0), 0);
+
+	road.normal = Ogre::Vector3::UNIT_Z;
+	road.d = 0;
 	Ogre::MeshManager::getSingleton().createPlane(
-		"lbuilding",
+		"road",
 		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 		//plane,
-		leftBuilding,
-		500, 2400, 20, 20,
+		road,
+		6400, 192, 20, 20,
 		true,
-		1, 1, 2,
+		1, 20, 1,
 		Ogre::Vector3::UNIT_Y);
 
-	Ogre::Entity* lbuildingEntity = engine->gfxMgr->mSceneMgr->createEntity("lbuilding");
-	Ogre::SceneNode* leftb1 = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	leftb1->attachObject(lbuildingEntity);
-	leftb1->setPosition(-750, 100, 0);
-	lbuildingEntity->setCastShadows(false);
-	lbuildingEntity->setMaterialName("buildingMaterials/building_right_window");
-
-	rightBuilding.normal = Ogre::Vector3::UNIT_Z;
-	rightBuilding.d = 0;
-	Ogre::MeshManager::getSingleton().createPlane(
-		"rbuilding",
-		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		//plane,
-		leftBuilding,
-		500, 2400, 20, 20,
-		true,
-		1, 1, 2,
-		Ogre::Vector3::UNIT_Y);
-
-	Ogre::Entity* rbuildingEntity = engine->gfxMgr->mSceneMgr->createEntity("rbuilding");
-	Ogre::SceneNode* rightb1 = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	rightb1->attachObject(rbuildingEntity);
-	rightb1->setPosition(750, 100, 0);
-	rbuildingEntity->setCastShadows(false);
-	rbuildingEntity->setMaterialName("buildingMaterials/building_right_window");
+	Ogre::Entity* r = engine->gfxMgr->mSceneMgr->createEntity("road");
+	Ogre::SceneNode* r1 = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	r1->attachObject(r);
+	r1->setPosition(0, -180, -0.5);
+	r->setCastShadows(false);
+	r->setMaterialName("buildingMaterials/road");
 }
 
 
@@ -203,6 +168,15 @@ bool GfxMgr::frameRenderingQueued(const Ogre::FrameEvent& fe){
 
 
 void GfxMgr::LoadLevel(){
+
+	Ogre::Light* amb = mSceneMgr->createLight("DIRECTIONAL");
+	amb->setDiffuseColour(1.0,1.0,1.0);
+	amb->setSpecularColour(1.0, 1.0, 1.0);
+
+	amb->setType(Ogre::Light::LT_DIRECTIONAL);
+
+    Ogre::SceneNode* ambNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+    ambNode->attachObject(amb);
 
 }
 

@@ -42,6 +42,8 @@ public:
 	Ogre::Plane leftBuilding;
 	Ogre::Plane rightBuilding;
 	Ogre::Plane background;
+	Ogre::Plane road;
+	Ogre::Plane sidewalk;
 
 	void MakeSky();
 

@@ -11,8 +11,8 @@
 #include <GfxMgr.h>
 #include <InputMgr.h>
 #include <UiMgr.h>
-//#include <SoundMgr.h>
-//#include <OgreTimer.h>
+#include <SoundMgr.h>
+#include <OgreTimer.h>
 
 
 Engine::Engine() {

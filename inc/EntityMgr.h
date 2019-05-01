@@ -3,32 +3,34 @@
 
 #include <vector>
 #include <Mgr.h>
-#include <Entity381.h>
-#include <FlyingEntity381.h>
-#include <Types381.h>
 #include <Player.h>
+#include <Vine.h>
+#include <Building.h>
+#include <Entity381.h>
+
+class Player;
+class Vine;
+class Building;
+
 
 class EntityMgr: public Mgr {
 public:
   EntityMgr(Engine *engine);
   virtual ~EntityMgr();
 
-  //Engine *engine;
+  Engine *engine;
 
-  std::vector<Entity381*> entities;
   Player* player;
-  Entity381* selectedEntity;
-  FlyingEntity381* selectedFlyingEntity;
-  int selectedEntityIndex;
+  std::vector<Vine*> vines;
+  std::vector<Building*> buildings;
+  int seedCount;
 
 
-  //Ogre::SceneManager *sceneMgr;
+  Ogre::SceneManager *sceneMgr;
 
-  void CreateEntityOfTypeAtPosition(EntityTypes type, Ogre::Vector3 pos);
-  void SelectNextEntity();
-  void SetSelectedFlyingEntity();
   void Select(int index);
-
+  void CreateNewVine(Ogre::Vector3 pos, int dir);
+  void CreateNewBuilding(Ogre::Vector3 pos, int buildingType);
   void Tick(float dt);
 
 protected:

@@ -11,6 +11,7 @@
 #include <InputMgr.h>
 #include <EntityMgr.h>
 #include <Types381.h>
+#include <Player.h>
 
 UiMgr::UiMgr(Engine* eng): Mgr(eng){
 	// Initialize the OverlaySystem (changed for Ogre 1.9)
@@ -63,21 +64,28 @@ void UiMgr::LoadLevel(){
 	mLabel = mTrayMgr->createLabel(OgreBites::TL_LEFT,"MyLabel","Menu Stuff for Testing",250);
 
 	infoLabel = mTrayMgr->createLabel(OgreBites::TL_TOPLEFT, "infoLabel", "No Unit Selected", 200);
-//	infoLabel2 = mTrayMgr->createLabel(OgreBites::TL_RIGHT, "infoLabel2", "No Unit Selected", 250);
+	infoLabel2 = mTrayMgr->createLabel(OgreBites::TL_TOP, "infoLabel2", "No Unit Selected", 250);
 //	infoLabel3 = mTrayMgr->createLabel(OgreBites::TL_RIGHT, "infoLabel3", "No Unit Selected", 250);
 
 
-	OgreBites::ProgressBar * pbar;
-	pbar = mTrayMgr->createProgressBar(OgreBites::TL_TOP,"TimerBar", "Timer", 300, 200);
-	pbar->setProgress(100);
+	//OgreBites::ProgressBar * pbar;
+	//pbar = mTrayMgr->createProgressBar(OgreBites::TL_TOP,"TimerBar", "Timer", 300, 200);
+	//pbar->setProgress(100);
+
+	//Timer = mTrayMgr->createProgressBar(OgreBites::TL_TOP,"TimerBar", "Timer", 300, 200);
+	//time = 0;
+	//Timer->setProgress(time);
 
 }
 
 void UiMgr::Tick(float dt){
 	mTrayMgr->refreshCursor();
 
-	int seedCount = 100; //Get data from game once implemented
-	infoLabel->setCaption("Seed Count: " + std::to_string(seedCount));
+	//int seedCount = 100; //Get data from game once implemented
+	infoLabel->setCaption("Seed Count: " + std::to_string(engine->entityMgr->seedCount));
+	time = time - dt;
+	int wholeTime = (int)time;
+	infoLabel2->setCaption("Timer: " + std::to_string(wholeTime));
 
 //	switch(engine->entityMgr->selectedEntity->entityType)
 //	{
@@ -187,13 +195,25 @@ void UiMgr::itemSelected(OgreBites::SelectMenu *m){
     case 1:
     	//engine->entityMgr->CreateEntityOfTypeAtPosition(DDG51Type,pos);
     	mLabel->setCaption("Test Print Sound Control");
+    	if(engine->soundMgr->pauseAllAudio() == true)
+    	{
+    		//engine->soundMgr->resumeAllAudio();
+    	}
+    	else
+    	{
+    		//engine->soundMgr->pauseAllAudio();
+    	}
     	break;
     case 2:
     	//engine->entityMgr->CreateEntityOfTypeAtPosition(CarrierType,pos);
     	mLabel->setCaption("QUITTER");
+    	engine->keepRunning = false;
     	break;
     case 3:
     	mLabel->setCaption("RESTART");
+//    	engine->Cleanup();
+//    	engine->Init();
+//    	engine->Run();
     	break;
     default:
     	break;

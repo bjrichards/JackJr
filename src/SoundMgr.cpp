@@ -87,9 +87,9 @@ void SoundMgr::initialize(void){
 	//printError("Generating sources");
 
 	//syncListenerToCamera(); //setup listener
-        
+
         isEnabled = true;
-        
+
         //initialize vectors
         for (int i = 0; i < 6; i++){
             for (int j = 0; j < soundPerEnt; j++){
@@ -102,16 +102,17 @@ void SoundMgr::initialize(void){
 
 	unsigned int sid;
         //background music
-	std::string filename = "data/watercraft/sounds/bensound-goinghigher.wav"; //https://www.bensound.com/
+	//std::string filename = "data/watercraft/sounds/bensound-goinghigher.wav"; //https://www.bensound.com/
+	std::string filename = "data/watercraft/sounds/Arpanauts.wav"; //https://ericskiff.com/music/
 	if (this->reserveAudio(filename, true, sid)){
 		std::cout << "background music loaded" << std::endl;
                 backgroundMusicSource = sourceInfo[sid].source;
                 this->loadStartBackground();
         }
 	std::cout << "background music loaded" << std::endl;
-        
+
         initWatercraftSounds();
-  
+
         //filename = "data/watercraft/sounds/explosion.wav";
         //default explosion sound for all entities
 //        if (this->reserveAudio(filename, false, sid)){
@@ -229,7 +230,7 @@ void SoundMgr::loadLevel(void){
 	//read sound files
 
 	//load background, start, loop
-	//loadStartBackground();
+	loadStartBackground();
 
 
 	return;
@@ -237,11 +238,11 @@ void SoundMgr::loadLevel(void){
 double static tmpT = 0.0;
 bool static paused = false;
 
- 
+
 void SoundMgr::attachSelectedNodeToSoundIndex(Entity381 *ent, unsigned int index){
 //        if (index == -1) //if there is no defined sound for the specified type, don't do anything
 //                return;
-        
+
         this->playAudio(this->sourceInfo[index].source, true);  //second argument is added as true since it was causing nonresponsiveness when method is called again before the sound ends
 	Ogre::Vector3 position = ent->position;
 	setSoundPosition(this->sourceInfo[index].source, position);
@@ -250,7 +251,7 @@ void SoundMgr::attachSelectedNodeToSoundIndex(Entity381 *ent, unsigned int index
 void SoundMgr::tick(double dtime){
 
 	//syncListenerToCamera();
-        
+
         //selection sound
 //		for(std::list<Entity381 *>::const_iterator it = engine->entityMgr->entities.begin(); it != engine->entityMgr->entities.end(); ++it){
 //           if ((*it)->isSelected && !(*it)->didSelectSoundPlay){
@@ -261,12 +262,12 @@ void SoundMgr::tick(double dtime){
 //        	   (*it)->didSelectSoundPlay = false;
 //           }
 //        }
-}
-        
+//}
+
         //this was for moving sound but playing sound for all moving objects does not seem to be a good idea
         //copySoundState();
-        
-        
+
+
 //	tmpT += dtime;
 //	if(tmpT > 5.0 && !paused && tmpT < 6.0){
 //		this->pauseBackground();
@@ -276,25 +277,25 @@ void SoundMgr::tick(double dtime){
 //		paused = false;
 //		this->resumeBackground();
 //	}
-//	return;
-//}
+	return;
+}
 
 bool SoundMgr::playSelectionSound(Entity381 et){
         Ogre::Vector3 position = et.position;
-        
+
         if (et.soundFile == ""){
             std::cout << "There is no registered selection sounds for this entity type" << std::endl;
             return false; //there is no sound to play
         }
         this->playAudioSourceIndex(et.auioId);
         setSoundPosition(sourceInfo[et.auioId].source, position);
-        
+
         return true;
 }
 
 /*bool SoundMgr::playEntityBornSound(FastEcslent::EntityType et, OgreGFX::GFXNode *gfxNode){
         Ogre::Vector3 pos = gfxNode->node->getPosition();
-        
+
         int sounds = 0;
         int arrayIndex = 0;
         for (int i = 0; i < soundPerEnt; i++){
@@ -315,7 +316,7 @@ bool SoundMgr::playSelectionSound(Entity381 et){
         int sourceIndex = creationSoundsDictionary[et][arrayIndex];
         this->playAudioSourceIndex(sourceIndex, true);
         setSoundPosition(sourceInfo[sourceIndex].source, pos);
-        
+
         return true;
 }
 
@@ -341,13 +342,13 @@ bool SoundMgr::playExplosionSound(FastEcslent::EntityType et, OgreGFX::GFXNode *
         int sourceIndex = battleSoundsDictionary[et][arrayIndex];
         this->playAudioSourceIndex(sourceIndex, true);
         setSoundPosition(sourceInfo[sourceIndex].source, pos);
-        
+
         return true;
 }
 
 bool SoundMgr::playExplosionSound(OgreGFX::GFXNode *gfxNode){
         Ogre::Vector3 pos = gfxNode->node->getPosition();
-        
+
         return false;
 
         if (this->playAudio(battleSoundSource, true)){
@@ -356,6 +357,15 @@ bool SoundMgr::playExplosionSound(OgreGFX::GFXNode *gfxNode){
         else
             return false;
 }*/
+
+//------------------JUMP---------------------
+
+//bool SoundMgr::playJumping(FastEcslent::EntityType et, OgreGFX::GFXNode *gfxNode)
+//{
+//
+//}
+
+//--------------------------------------
 
 void SoundMgr::releaseLevel(void){
 	// release stuff loaded for this level
@@ -485,7 +495,7 @@ int SoundMgr::getEmptySourceIndex(){
                 this->creationSoundsDictionary[et][lastIndex] = sid;
                 alSourcei(this->sourceInfo[sid].source, AL_REFERENCE_DISTANCE, 2000.0f);
                 alSourcei(this->sourceInfo[sid].source, AL_MAX_DISTANCE, 8000.0f);
-                
+
                 sourceDictionary[sid] = filename;
                 return true;
     }
@@ -511,7 +521,7 @@ bool SoundMgr::registerSelection(Entity381 et, std::string filename){
                 this->selectionSoundsDictionary[et.auioId][lastIndex] = sid;
                 alSourcei(this->sourceInfo[sid].source, AL_REFERENCE_DISTANCE, 2000.0f);
                 alSourcei(this->sourceInfo[sid].source, AL_MAX_DISTANCE, 8000.0f);
-                
+
                 sourceDictionary[sid] = filename;
                 et.soundFile = filename;
                 return true;
@@ -552,11 +562,11 @@ bool SoundMgr::registerSelection(Entity381 et, std::string filename){
                     std::cout << "Could not register new sound, max allowed number per entity reached" << std::endl;
                     return false;
                 }
-                
+
                 this->battleSoundsDictionary[et][lastIndex] = sid;
                 alSourcei(this->sourceInfo[sid].source, AL_REFERENCE_DISTANCE, 2000.0f);
                 alSourcei(this->sourceInfo[sid].source, AL_MAX_DISTANCE, 8000.0f);
-                
+
                 sourceDictionary[sid] = filename;
                 return true;
     }

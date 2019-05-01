@@ -24,6 +24,9 @@ public:
 	void MoveLeft(float dt);
 	void Jump();
 	void Tick(float dt);
+	bool CheckForBottomVineCollisions(float dt);
+	bool CheckForTopVineCollisions(float dt);
+	bool CheckForTopBuildingCollisions(float dt);
 
 	Ogre::Plane playerPlane;
 	Engine* engine;

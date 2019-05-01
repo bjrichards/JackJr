@@ -8,11 +8,11 @@
 #ifndef ENGINE_H_
 #define ENGINE_H_
 
-//#include <EntityMgr.h>
-//#include <GameMgr.h>
-//#include <GfxMgr.h>
-//#include <InputMgr.h>
-//#include <UiMgr.h>
+#include <EntityMgr.h>
+#include <GameMgr.h>
+#include <GfxMgr.h>
+#include <InputMgr.h>
+#include <UiMgr.h>
 #include <SoundMgr.h>
 
 class EntityMgr;

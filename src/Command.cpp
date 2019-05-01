@@ -8,7 +8,6 @@
 #include <Command.h>
 #include <Entity381.h>
 #include <CommandTypes.h>
-#include <Utils.h>
 
 Command::Command(Entity381* ent, CommandType ct){
 	entity = ent;
@@ -84,30 +83,11 @@ Intercept::~Intercept(){
 }
 
 void Intercept::init(){
-//		targetLocation = prey->position;
-//		entity->desiredSpeed = entity->maxSpeed;
-//
-//		//Set desired heading
-//		Ogre::Degree heading = Ogre::Degree(Ogre::Math::ATan2((targetLocation.x - entity->position.x), (targetLocation.z - entity->position.z)));
-//		std::cout << heading << std::endl;
-//		entity->desiredHeading = FixAngle(FixAngle((-heading.valueDegrees())) + 90);
+
 }
 
 void Intercept::tick(float dt){
-//	targetLocation = prey->position + prey->velocity * dt;
-//	entity->desiredSpeed = entity->maxSpeed;
-//
-//	//Set desired heading
-//	Ogre::Degree heading = Ogre::Degree(Ogre::Math::ATan2((targetLocation.x - entity->position.x), (targetLocation.z - entity->position.z)));
-//	std::cout << heading << std::endl;
-//	entity->desiredHeading = FixAngle(FixAngle((-heading.valueDegrees())) + 90);
-//
-//	if (entity->position.distance(targetLocation) < MOVE_DISTANCE_THRESHOLD)
-//	{
-//		entity->desiredSpeed = entity->minSpeed;
-//		is_done = true;
-//
-//	}
+
 }
 
 bool Intercept::done(){

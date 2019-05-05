@@ -54,40 +54,40 @@ protected:
 
 
 
-class Carrier: public Entity381 {
-public:
-	Carrier(Engine *engine, Ogre::Vector3 pos, int identity);
-	virtual ~Carrier();
-
-};
-
-class DDG51: public Entity381 {
-public:
-	DDG51(Engine *engine, Ogre::Vector3 pos, int identity);
-	virtual ~DDG51();
-
-};
-
-class SpeedBoat: public Entity381 {
-public:
-	SpeedBoat(Engine *engine, Ogre::Vector3 pos, int identity);
-	virtual ~SpeedBoat();
-
-};
-
-class Frigate: public Entity381 {
-public:
-	Frigate(Engine *engine, Ogre::Vector3 pos, int identity);
-	virtual ~Frigate();
-
-};
-
-class Alien: public Entity381 {
-public:
-	Alien(Engine *engine, Ogre::Vector3 pos, int identity);
-	virtual ~Alien();
-
-};
+//class Carrier: public Entity381 {
+//public:
+//	Carrier(Engine *engine, Ogre::Vector3 pos, int identity);
+//	virtual ~Carrier();
+//
+//};
+//
+//class DDG51: public Entity381 {
+//public:
+//	DDG51(Engine *engine, Ogre::Vector3 pos, int identity);
+//	virtual ~DDG51();
+//
+//};
+//
+//class SpeedBoat: public Entity381 {
+//public:
+//	SpeedBoat(Engine *engine, Ogre::Vector3 pos, int identity);
+//	virtual ~SpeedBoat();
+//
+//};
+//
+//class Frigate: public Entity381 {
+//public:
+//	Frigate(Engine *engine, Ogre::Vector3 pos, int identity);
+//	virtual ~Frigate();
+//
+//};
+//
+//class Alien: public Entity381 {
+//public:
+//	Alien(Engine *engine, Ogre::Vector3 pos, int identity);
+//	virtual ~Alien();
+//
+//};
 
 
 #endif // #ifndef __Entity381_h_

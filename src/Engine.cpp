@@ -52,6 +52,8 @@ void Engine::Init(){
 	gameMgr->LoadLevel();
 	uiMgr->LoadLevel();
 	soundMgr->loadLevel();
+
+	gameMgr->LoadNewLevel("level0");
 }
 
 

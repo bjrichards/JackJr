@@ -151,7 +151,7 @@ void InputMgr::HandleMouseSelection(const OIS::MouseEvent &me){
 	int index = -1;
 	Ogre::Ray mouseRay = engine->gfxMgr->mCamera->getCameraToViewportRay(ms.X.abs/(float) ms.width, ms.Y.abs/(float)ms.height);
 	std::pair<bool, float> result = mouseRay.intersects(engine->gfxMgr->background);
-	if(result.first && (engine->entityMgr->seedCount != 0)){
+	if(result.first && (engine->entityMgr->seedCount != 0) && (!engine->entityMgr->player->isFalling)){
 		std::cout << "Got Here" << std::endl;
 		Ogre::Vector3 posUnderMouse = mouseRay.getPoint(result.second);
 		float minDistanceSquared = FLT_MAX;
@@ -169,13 +169,13 @@ void InputMgr::HandleMouseSelection(const OIS::MouseEvent &me){
 			Building* b = engine->entityMgr->buildings[index];
 			std::cout << index << std::endl;
 			std::cout << "Pointer be pointing" << std::endl;
-			if (posUnderMouse.x > b->position.x)
+			if (posUnderMouse.x > b->position.x && !engine->entityMgr->player->IsColliding(Ogre::Vector3(b->position.x + 520, posUnderMouse.y, 0)))
 			{
 				std::cout << "Creating New Vine" << std::endl;
 				engine->entityMgr->CreateNewVine(Ogre::Vector3(b->position.x + 520, posUnderMouse.y, 0), 0);
 				std::cout << "Vine Created" << std::endl;
 			}
-			else
+			else if (posUnderMouse.x <= b->position.x && !engine->entityMgr->player->IsColliding(Ogre::Vector3(b->position.x - 520, posUnderMouse.y, 0)))
 			{
 				std::cout << "Creating New Vine" << std::endl;
 				engine->entityMgr->CreateNewVine(Ogre::Vector3(b->position.x - 520, posUnderMouse.y, 0), 1);

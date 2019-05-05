@@ -5,13 +5,14 @@
 #include <Mgr.h>
 #include <Player.h>
 #include <Vine.h>
+#include <Bird.h>
 #include <Building.h>
 #include <Entity381.h>
 
 class Player;
 class Vine;
 class Building;
-
+class Bird;
 
 class EntityMgr: public Mgr {
 public:
@@ -23,8 +24,9 @@ public:
   Player* player;
   std::vector<Vine*> vines;
   std::vector<Building*> buildings;
+  std::vector<Bird*> birds;
   int seedCount;
-
+  std::vector<Entity381*> entities;
 
   Ogre::SceneManager *sceneMgr;
 

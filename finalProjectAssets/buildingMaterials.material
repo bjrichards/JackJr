@@ -1,0 +1,642 @@
+material buildingMaterials/building_plain
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture basicBuilding.png
+				scale 1 1
+			}
+		}
+	}
+}
+material buildingMaterials/building_Ladder
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture ladderBuilding.png
+				scale 1 1
+			}
+		}
+	}
+}
+material buildingMaterials/building_right_window
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture rightWindowBuilding.png
+				scale 1 0.3
+			}
+		}
+	}
+}
+material buildingMaterials/lrWindowbuilding
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture lrWindowBuilding.png
+				scale 1 1
+			}
+		}
+	}
+}
+material buildingMaterials/background
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture sky.png
+				scale 1 1
+			}
+		}
+	}
+}
+material buildingMaterials/road
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture Road.png
+				scale 1 1
+			}
+		}
+	}
+}
+material buildingMaterials/sidewalk
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture sideWalk.png
+				scale 1 1
+			}
+		}
+	}
+}
+material buildingMaterials/glassBuilding
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture glassBuildingSmaller.png
+				scale 1 1
+			}
+		}
+	}
+}
+
+material buildingMaterials/playerRight
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture playerRight.png
+				scale 1 1
+			}
+		}
+	}
+}
+material buildingMaterials/playerLeft
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture playerLeft.png
+				scale 1 1
+			}
+		}
+	}
+}
+
+material vineL/vine_00
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/00.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_01
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/01.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_02
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/02.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_03
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/03.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_04
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/04.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_05
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/05.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_06
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/06.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_07
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/07.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_08
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/08.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_09
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/09.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_10
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/10.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_11
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/11.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_12
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/12.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineL/vine_13
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0/13.png
+				scale 1 1
+			}
+		}
+	}
+}
+
+material vineR/vine_00
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/00.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_01
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/01.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_02
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/02.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_03
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/03.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_04
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/04.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_05
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/05.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_06
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/06.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_07
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/07.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_08
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/08.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_09
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/09.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_10
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/10.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_11
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/11.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_12
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/12.png
+				scale 1 1
+			}
+		}
+	}
+}
+material vineR/vine_13
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture vine0R/13.png
+				scale 1 1
+			}
+		}
+	}
+}
+
+material Bird/flying_00
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture bird/flying/00.png
+				scale 1 1
+			}
+		}
+	}
+}
+material Bird/flying_01
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture bird/flying/01.png
+				scale 1 1
+			}
+		}
+	}
+}
+
+material Bird/pecking_00
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture bird/pecking/00.png
+				scale 1 1
+			}
+		}
+	}
+}
+material Bird/pecking_01
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture bird/pecking/01.png
+				scale 1 1
+			}
+		}
+	}
+}
+material Bird/pecking_02
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture bird/pecking/02.png
+				scale 1 1
+			}
+		}
+	}
+}

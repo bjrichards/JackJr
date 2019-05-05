@@ -27,6 +27,7 @@ public:
 	bool CheckForBottomVineCollisions(float dt);
 	bool CheckForTopVineCollisions(float dt);
 	bool CheckForTopBuildingCollisions(float dt);
+	bool IsColliding(Ogre::Vector3 objectPos);
 
 	Ogre::Plane playerPlane;
 	Engine* engine;

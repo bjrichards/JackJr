@@ -29,6 +29,7 @@ namespace OgreSND {
 	const int maxAudioBuffers = 63; // + 1 for background music
 	const int maxAudioSources = 15; // + 1 for background music
 	const std::string backgroundMusicFilename = "data/watercraft/sounds/Arpanauts.wav";
+	const std::string jumpSoundFilename = "data/watercraft/sounds/Jump.wav";
 	//const std::string backgroundMusicFileName = "data/watercraft/sounds/bensound-goinghigher.wav";
 	///home/sushil/workspace/fe1/
 
@@ -57,6 +58,8 @@ namespace OgreSND {
 
 		SourceInfo sourceInfo[maxAudioSources];
 		BufferInfo  bufferInfo[maxAudioBuffers];
+		SourceInfo *jumpInfo;
+		ALuint jumpingSound;
 
 		//Special treatment for background source and buffer
 		ALuint backgroundMusicBuffer, backgroundMusicSource;
@@ -109,6 +112,7 @@ namespace OgreSND {
                 //bool playExplosionSound(FastEcslent::EntityType et, OgreGFX::GFXNode *gfxNode);
                 //bool playExplosionSound(OgreGFX::GFXNode *gfxNode);
                 bool playSelectionSound(Entity381 et);
+                bool playJumpSound();
 
         //Jumping
         //bool SoundMgr::playJumping(FastEcslent::EntityType et, OgreGFX::GFXNode *gfxNode);

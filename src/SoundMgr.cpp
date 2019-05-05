@@ -104,6 +104,7 @@ void SoundMgr::initialize(void){
         //background music
 	//std::string filename = "data/watercraft/sounds/bensound-goinghigher.wav"; //https://www.bensound.com/
 	std::string filename = "data/watercraft/sounds/Arpanauts.wav"; //https://ericskiff.com/music/
+	std::string jumpFileName = "data/watercraft/sounds/Jump.wav";
 	if (this->reserveAudio(filename, true, sid)){
 		std::cout << "background music loaded" << std::endl;
                 backgroundMusicSource = sourceInfo[sid].source;
@@ -230,7 +231,7 @@ void SoundMgr::loadLevel(void){
 	//read sound files
 
 	//load background, start, loop
-	loadStartBackground();
+	//loadStartBackground(); //This was looping background music
 
 
 	return;
@@ -291,6 +292,20 @@ bool SoundMgr::playSelectionSound(Entity381 et){
         setSoundPosition(sourceInfo[et.auioId].source, position);
 
         return true;
+}
+
+bool SoundMgr::playJumpSound()
+{
+	//WaveInfo* jumpSound;
+	//std::string fqfn = getFQFNFromFilename(OgreSND::jumpSoundFilename);
+	//std::cout << "SoundManager backgroundMusic file: " << fqfn << " is being readied" << std::endl;
+	//jumpSound = WaveOpenFileForReading(fqfn.c_str());
+
+	unsigned int sid;
+	reserveAudio(jumpSoundFilename, true, sid);
+    jumpingSound = jumpInfo[sid].source;
+    playAudioSourceIndex(jumpingSound, true);
+	//alSourcePlay(jumpingSound);
 }
 
 /*bool SoundMgr::playEntityBornSound(FastEcslent::EntityType et, OgreGFX::GFXNode *gfxNode){

@@ -39,5 +39,17 @@ void EntityMgr::Tick(float dt){
 	{
 		vines[i]->Tick(dt);
 	}
+	for (unsigned int i = 0; i < birds.size(); i++)
+	{
+		birds[i]->Tick(dt);
+	}
+	float toBirdOrNotToBird = Ogre::Math::RangeRandom(0, 1.0);
+	std::cout << toBirdOrNotToBird << std::endl;
+	if (toBirdOrNotToBird > 0.99993 && vines.size() > 0)
+	{
+		std::cout << "Creating a bird" << std::endl;
+		Bird* bird = new Bird(engine, Ogre::Vector3((player->position.x+900), (player->position.y + 1000), 2));
+		birds.push_back(bird);
+	}
 	player->Tick(dt);
 }

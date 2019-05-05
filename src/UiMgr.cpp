@@ -52,6 +52,16 @@ void UiMgr::LoadLevel(){
 //	options.push_back("Spawn Carrier");
 //	mTrayMgr->createLongSelectMenu(OgreBites::TL_TOPRIGHT, "MyMenu", "Menu", 300, 4,options);
 
+	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("Background", "General");
+	material->getTechnique(0)->getPass(0)->createTextureUnitState("20190410_045430320_iOS.png");
+	material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
+	material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
+	material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
+
+	mTrayMgr->showBackdrop("Background");
+
+	mTrayMgr->createButton(OgreBites::TL_BOTTOM, "StartButton", "Start");
+
 	Ogre::StringVector options;
 	options.push_back("Title Screen");
 	options.push_back("Sound Controls");
@@ -61,11 +71,11 @@ void UiMgr::LoadLevel(){
 
 	//mTrayMgr->showBackdrop("ECSLENT/UI"); //Menu display at the buttom of the screen
 
-	mLabel = mTrayMgr->createLabel(OgreBites::TL_LEFT,"MyLabel","Menu Stuff for Testing",250);
+	//mLabel = mTrayMgr->createLabel(OgreBites::TL_LEFT,"MyLabel","Menu Stuff for Testing",250);
 
-	infoLabel = mTrayMgr->createLabel(OgreBites::TL_TOPLEFT, "infoLabel", "No Unit Selected", 200);
-	infoLabel2 = mTrayMgr->createLabel(OgreBites::TL_TOP, "infoLabel2", "No Unit Selected", 250);
-//	infoLabel3 = mTrayMgr->createLabel(OgreBites::TL_RIGHT, "infoLabel3", "No Unit Selected", 250);
+//	infoLabel = mTrayMgr->createLabel(OgreBites::TL_TOPLEFT, "infoLabel", "No Unit Selected", 200);
+//	infoLabel2 = mTrayMgr->createLabel(OgreBites::TL_TOP, "infoLabel2", "No Unit Selected", 250);
+	infoLabel3 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "infoLabel3", "Jack Jr: The Vine Jumper", 300);
 
 
 	//OgreBites::ProgressBar * pbar;
@@ -82,50 +92,21 @@ void UiMgr::Tick(float dt){
 	mTrayMgr->refreshCursor();
 
 	//int seedCount = 100; //Get data from game once implemented
-	infoLabel->setCaption("Seed Count: " + std::to_string(engine->entityMgr->seedCount));
-	time = time - dt;
-	int wholeTime = (int)time;
-	infoLabel2->setCaption("Timer: " + std::to_string(wholeTime));
+//	infoLabel->setCaption("Seed Count: " + std::to_string(engine->entityMgr->seedCount));
+	if(startTimer == true)
+	{
+		infoLabel->setCaption("Seed Count: " + std::to_string(engine->entityMgr->seedCount));
+		time = time - dt;
+		wholeTime = (int)time;
+		infoLabel2->setCaption("Timer: " + std::to_string(wholeTime));
+		if(wholeTime == 0)
+		{
+//			engine->gameMgr->Stop();
+//			engine->gameMgr->LoadLevel();
+		}
+	}
+//	infoLabel2->setCaption("Timer: " + std::to_string(wholeTime));
 
-//	switch(engine->entityMgr->selectedEntity->entityType)
-//	{
-//		case DDG51Type:
-//			infoLabel->setCaption("Type: DDG51");
-//			infoLabel2->setCaption("Heading: " + std::to_string(engine->entityMgr->selectedEntity->heading));
-//			infoLabel3->setCaption("Speed: " + std::to_string(engine->entityMgr->selectedEntity->speed));
-//			break;
-//		case CarrierType:
-//			infoLabel->setCaption("Type: Carrier");
-//			infoLabel2->setCaption("Heading: " + std::to_string(engine->entityMgr->selectedEntity->heading));
-//			infoLabel3->setCaption("Speed: " + std::to_string(engine->entityMgr->selectedEntity->speed));
-//			break;
-//		case SpeedBoatType:
-//			infoLabel->setCaption("Type: SpeedBoat");
-//			infoLabel2->setCaption("Heading: " + std::to_string(engine->entityMgr->selectedEntity->heading));
-//			infoLabel3->setCaption("Speed: " + std::to_string(engine->entityMgr->selectedEntity->speed));
-//			break;
-//		case FrigateType:
-//			infoLabel->setCaption("Type: Frigate");
-//			infoLabel2->setCaption("Heading: " + std::to_string(engine->entityMgr->selectedEntity->heading));
-//			infoLabel3->setCaption("Speed: " + std::to_string(engine->entityMgr->selectedEntity->speed));
-//			break;
-//		case AlienType:
-//			infoLabel->setCaption("Type: Alien");
-//			infoLabel2->setCaption("Heading: " + std::to_string(engine->entityMgr->selectedEntity->heading));
-//			infoLabel3->setCaption("Speed: " + std::to_string(engine->entityMgr->selectedEntity->speed));
-//			break;
-//		case BansheeType:
-//			infoLabel->setCaption("Type: Banshee");
-//			infoLabel2->setCaption("Heading: " + std::to_string(engine->entityMgr->selectedEntity->heading));
-//			infoLabel3->setCaption("Speed: " + std::to_string(engine->entityMgr->selectedEntity->speed));
-//			break;
-//		default:
-//			infoLabel->setCaption("No Unit Selected");
-//			infoLabel2->setCaption("No Unit Selected");
-//			infoLabel3->setCaption("No Unit Selected");
-//			break;
-//
-//	}
 }
 
 void UiMgr::windowResized(Ogre::RenderWindow* rw){
@@ -165,15 +146,20 @@ bool UiMgr::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id){
 }
 
 void UiMgr::buttonHit(OgreBites::Button *b){
-//    if(b->getName()=="MyButton")
-//    {
-//        std::cout <<"Boat Spawned!" << std::endl;
-//        Ogre::Vector3 pos;
-//        pos.x = 0;
-//        pos.y = 0;
-//        pos.z = -100;
-//        engine->entityMgr->CreateEntityOfTypeAtPosition(SpeedBoatType,pos);
-//    }
+    if(b->getName()=="StartButton")
+    {
+        mTrayMgr->hideBackdrop();
+        mTrayMgr->destroyWidget(b->getName());
+        mTrayMgr->destroyWidget("MyMenu");
+        mTrayMgr->destroyWidget(infoLabel3);
+        mTrayMgr->showLogo(OgreBites::TL_BOTTOMRIGHT);
+        mTrayMgr->showCursor();
+
+    	infoLabel = mTrayMgr->createLabel(OgreBites::TL_TOPLEFT, "infoLabel", "No Unit Selected", 200);
+    	infoLabel2 = mTrayMgr->createLabel(OgreBites::TL_TOP, "infoLabel2", "No Unit Selected", 250);
+
+        startTimer = true;
+    }
 //    else if(b->getName()=="SelectButton")
 //        {
 //            std::cout <<"Selection Changed!" << std::endl;
@@ -183,29 +169,14 @@ void UiMgr::buttonHit(OgreBites::Button *b){
 }
 
 void UiMgr::itemSelected(OgreBites::SelectMenu *m){
-//    Ogre::Vector3 pos;
-//    pos.x = 0;
-//    pos.y = 0;
-//    pos.z = 100;
     switch(m->getSelectionIndex()){
     case 0:
-    	//engine->entityMgr->CreateEntityOfTypeAtPosition(SpeedBoatType,pos);
     	mLabel->setCaption("Test print Title Screen");
     	break;
     case 1:
-    	//engine->entityMgr->CreateEntityOfTypeAtPosition(DDG51Type,pos);
     	mLabel->setCaption("Test Print Sound Control");
-    	if(engine->soundMgr->pauseAllAudio() == true)
-    	{
-    		//engine->soundMgr->resumeAllAudio();
-    	}
-    	else
-    	{
-    		//engine->soundMgr->pauseAllAudio();
-    	}
     	break;
     case 2:
-    	//engine->entityMgr->CreateEntityOfTypeAtPosition(CarrierType,pos);
     	mLabel->setCaption("QUITTER");
     	engine->keepRunning = false;
     	break;

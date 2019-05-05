@@ -9,6 +9,7 @@
 #define GAMEMGR_H_
 
 #include <Mgr.h>
+#include <string>
 
 class GameMgr: public Mgr {
 public:
@@ -17,6 +18,8 @@ public:
 
 	void Init();
 	void LoadLevel();
+
+	void LoadNewLevel(std::string levelName);
 
 	void MakeGround();
 	void MakeBuildings();

@@ -55,6 +55,8 @@ public:
 	OgreBites::Label *infoLabel3;
 //	OgreBites::ProgressBar *Timer;
 	float time = 100;
+	int wholeTime;
+	bool startTimer = false;
 	//bool sfxCheck = true;
 
 };

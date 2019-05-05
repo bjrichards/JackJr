@@ -59,19 +59,63 @@ void GameMgr::LoadLevel(){
 
 void GameMgr::MakeEntities(){
 	Ogre::Vector3 pos = Ogre::Vector3(-1000, 0, 0);
-//	engine->entityMgr->CreateEntityOfTypeAtPosition(DDG51Type, pos);
-////	pos.x += 500;
-////	engine->entityMgr->CreateEntityOfTypeAtPosition(CarrierType, pos);
-////	pos.x += 500;
-////	engine->entityMgr->CreateEntityOfTypeAtPosition(SpeedBoatType, pos);
-////	pos.x += 500;
-////	engine->entityMgr->CreateEntityOfTypeAtPosition(FrigateType, pos);
-////	pos.x += 500;
-////	engine->entityMgr->CreateEntityOfTypeAtPosition(AlienType, pos);
-////
-////	pos.x = 0;
-////	engine->entityMgr->CreateEntityOfTypeAtPosition(BansheeType, pos);
-//
-//	engine->entityMgr->SelectNextEntity(); //sets selection
 }
 
+void GameMgr::LoadNewLevel(std::string levelName)
+{
+	//Move everything from current level out of sight (out of sight out of mind lol)
+	EntityMgr* e = engine->entityMgr;
+
+	for (unsigned int i = 0; i < e->buildings.size(); i++)
+	{
+		e->buildings[i]->position.z = 10000;
+		e->buildings[i]->sceneNode->setPosition(Ogre::Vector3(e->buildings[i]->position.x, e->buildings[i]->position.y, 10000));
+	}
+	e->buildings.clear();
+
+	for (unsigned int i = 0; i < e->birds.size(); i++)
+	{
+		e->birds[i]->position.z = 10000;
+		e->birds[i]->flyTo = Ogre::Vector3(e->birds[i]->position.x, e->birds[i]->position.y, 10000);
+		e->birds[i]->sceneNode->setPosition(Ogre::Vector3(e->birds[i]->position.x, e->birds[i]->position.y, 10000));
+	}
+	e->birds.clear();
+
+	for (unsigned int i = 0; i < e->vines.size(); i++)
+	{
+		e->vines[i]->position.z = 10000;
+		e->vines[i]->sceneNode->setPosition(Ogre::Vector3(e->vines[i]->position.x, e->vines[i]->position.y, 10000));
+	}
+	e->vines.clear();
+
+	// Put the levels below here
+	if (levelName.compare("level0") == 0)
+	{
+		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(-750, 540, 0), 0);
+		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(-750, 1740, 0), 0);
+		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(750, 540, 0), 0);
+		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(750, 1740, 0), 0);
+
+		engine->gfxMgr->road.normal = Ogre::Vector3::UNIT_Z;
+		engine->gfxMgr->road.d = 0;
+		Ogre::MeshManager::getSingleton().createPlane(
+			"road",
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			//plane,
+			engine->gfxMgr->road,
+			6400, 192, 20, 20,
+			true,
+			1, 20, 1,
+			Ogre::Vector3::UNIT_Y);
+
+		Ogre::Entity* r = engine->gfxMgr->mSceneMgr->createEntity("road");
+		Ogre::SceneNode* r1 = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		r1->attachObject(r);
+		r1->setPosition(0, -180, -0.5);
+		r->setCastShadows(false);
+		r->setMaterialName("buildingMaterials/road");
+
+		engine->entityMgr->player->position = Ogre::Vector3::ZERO;
+		engine->entityMgr->seedCount = 25;
+	}
+}

@@ -66,10 +66,13 @@ void Player::MoveRight(float dt){
 	// Check for collision with vines
 	for (unsigned int i = 0; i < engine->entityMgr->vines.size() && !collisionFound; i++)
 	{
-		if (newPosition.y < engine->entityMgr->vines[i]->position.y + 64 && newPosition.y > engine->entityMgr->vines[i]->position.y - 64 && newPosition.x - 32 < engine->entityMgr->vines[i]->position.x + 60 && newPosition.x + 32 > engine->entityMgr->vines[i]->position.x - 60)
+		if(engine->entityMgr->vines[i]->position.z > -1)
 		{
-			collisionFound = true;
-			newPosition.x = position.x;
+			if (newPosition.y < engine->entityMgr->vines[i]->position.y + 64 && newPosition.y > engine->entityMgr->vines[i]->position.y - 64 && newPosition.x - 32 < engine->entityMgr->vines[i]->position.x + 60 && newPosition.x + 32 > engine->entityMgr->vines[i]->position.x - 60)
+			{
+				collisionFound = true;
+				newPosition.x = position.x;
+			}
 		}
 	}
 
@@ -101,9 +104,12 @@ void Player::MoveLeft(float dt){
 	}
 	for (unsigned int i = 0; i < engine->entityMgr->vines.size() && !collisionFound; i++)
 	{
-		if (newPosition.y < engine->entityMgr->vines[i]->position.y + 64 && newPosition.y > engine->entityMgr->vines[i]->position.y - 64 && newPosition.x - 32 < engine->entityMgr->vines[i]->position.x + 60 && newPosition.x + 32 > engine->entityMgr->vines[i]->position.x - 65)
+		if(engine->entityMgr->vines[i]->position.z > -1)
 		{
-			newPosition.x = position.x;
+			if (newPosition.y < engine->entityMgr->vines[i]->position.y + 64 && newPosition.y > engine->entityMgr->vines[i]->position.y - 64 && newPosition.x - 32 < engine->entityMgr->vines[i]->position.x + 60 && newPosition.x + 32 > engine->entityMgr->vines[i]->position.x - 60)
+			{
+				newPosition.x = position.x;
+			}
 		}
 	}
 
@@ -143,6 +149,7 @@ bool Player::CheckForTopBuildingCollisions(float dt)
 }
 
 void Player::Jump(){
+	//engine->soundMgr->playJumpSound();
 	if (!isFalling)
 	{
 		isFalling = true;
@@ -190,14 +197,17 @@ bool Player::CheckForTopVineCollisions(float dt)
 			Ogre::Vector3 nextPosition = position + velocity * dt;
 			for (unsigned int i = 0; i < engine->entityMgr->vines.size(); i++)
 			{
-				if (nextPosition.y < engine->entityMgr->vines[i]->position.y+64 && nextPosition.y > engine->entityMgr->vines[i]->position.y+60)
+				if(engine->entityMgr->vines[i]->position.z > -1)
 				{
-					if (nextPosition.x + 32 > engine->entityMgr->vines[i]->position.x-63 && nextPosition.x - 32 < engine->entityMgr->vines[i]->position.x+63)
+					if (nextPosition.y < engine->entityMgr->vines[i]->position.y+64 && nextPosition.y > engine->entityMgr->vines[i]->position.y+60)
 					{
-						if (velocity.y < 0)
-							velocity.y = 0;
-						isFalling = false;
-						return true;
+						if (nextPosition.x + 32 > engine->entityMgr->vines[i]->position.x-63 && nextPosition.x - 32 < engine->entityMgr->vines[i]->position.x+63)
+						{
+							if (velocity.y < 0)
+								velocity.y = 0;
+							isFalling = false;
+							return true;
+						}
 					}
 				}
 			}
@@ -213,15 +223,31 @@ bool Player::CheckForBottomVineCollisions(float dt)
 		Ogre::Vector3 nextPosition = position + velocity * dt;
 		for (unsigned int i = 0; i < engine->entityMgr->vines.size(); i++)
 		{
-			if (nextPosition.y  + 64 > engine->entityMgr->vines[i]->position.y-60 && nextPosition.y + 64 < engine->entityMgr->vines[i]->position.y+64)
+			if(engine->entityMgr->vines[i]->position.z > -1)
 			{
-				if (nextPosition.x + 32 > engine->entityMgr->vines[i]->position.x-63 && nextPosition.x - 32 < engine->entityMgr->vines[i]->position.x+63)
+				if (nextPosition.y  + 64 > engine->entityMgr->vines[i]->position.y-60 && nextPosition.y + 64 < engine->entityMgr->vines[i]->position.y+64)
 				{
-					velocity.y = 0;
-					return true;
+					if (nextPosition.x + 32 > engine->entityMgr->vines[i]->position.x-63 && nextPosition.x - 32 < engine->entityMgr->vines[i]->position.x+63)
+					{
+						velocity.y = 0;
+						return true;
+					}
 				}
 			}
 		}
 	}
+	return false;
+}
+
+bool Player::IsColliding(Ogre::Vector3 objectPos)
+{
+	if (objectPos.y - 60 < position.y + 64 && objectPos.y - 60 > position.y - 64)
+	{
+		if (objectPos.x - 63 < position.x + 32 && objectPos.x + 63 > position.x - 32)
+		{
+			return true;
+		}
+	}
+
 	return false;
 }

@@ -28,6 +28,10 @@ public:
 
 	Ogre::SceneNode *cameraNode;
 
+	bool finish = false;
+	Ogre::Vector3 finishLine;
+	//float timer;
+	int level = 0;
 };
 
 #endif /* GAMEMGR_H_ */

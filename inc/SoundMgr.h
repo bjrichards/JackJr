@@ -28,7 +28,7 @@ namespace OgreSND {
     const int soundPerEnt = 3;      // max different sounds to randomly choose per entity
 	const int maxAudioBuffers = 63; // + 1 for background music
 	const int maxAudioSources = 15; // + 1 for background music
-	const std::string backgroundMusicFilename = "data/watercraft/sounds/Arpanauts.wav";
+	const std::string backgroundMusicFilename = "data/watercraft/sounds/ArpanautsLow.wav";
 	const std::string jumpSoundFilename = "data/watercraft/sounds/Jump.wav";
 	//const std::string backgroundMusicFileName = "data/watercraft/sounds/bensound-goinghigher.wav";
 	///home/sushil/workspace/fe1/

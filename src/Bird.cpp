@@ -179,11 +179,9 @@ void Bird::UpdatePosition(float dt)
 	}
 	else
 	{
-		float x = Ogre::Math::RangeRandom(-1, 1) * 10000;
-		Ogre::Vector3 v = Ogre::Vector3(x, this->position.y + 1000, 2) - position;
-		velocity = v.normalisedCopy() * moveSpeed;
+		velocity = flyTo.normalisedCopy() * moveSpeed;
 
-		if (v.length() > 50)
+		if (flyTo.length() > 50)
 			position += velocity * dt;
 	}
 	sceneNode->setPosition(Ogre::Vector3(this->position.x, this->position.y, 2));

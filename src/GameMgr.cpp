@@ -52,6 +52,7 @@ void GameMgr::LoadLevel(){
 	  cameraNode->attachObject(engine->gfxMgr->mCamera);
 
 	  engine->gfxMgr->MakeBuildings();
+	  finishLine = Ogre::Vector3(0, 2500, 0);
 	  engine->gfxMgr->MakeSky();
 	  engine->entityMgr->player = new Player(engine, Ogre::Vector3::ZERO);
 	  MakeEntities();
@@ -91,10 +92,13 @@ void GameMgr::LoadNewLevel(std::string levelName)
 	// Put the levels below here
 	if (levelName.compare("level0") == 0)
 	{
+		level = 0;
+		cameraNode->setPosition(0, 200, 500);
 		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(-750, 540, 0), 0);
 		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(-750, 1740, 0), 0);
 		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(750, 540, 0), 0);
 		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(750, 1740, 0), 0);
+		finishLine = Ogre::Vector3(0, 2500, 0);
 
 		engine->gfxMgr->road.normal = Ogre::Vector3::UNIT_Z;
 		engine->gfxMgr->road.d = 0;
@@ -116,6 +120,47 @@ void GameMgr::LoadNewLevel(std::string levelName)
 		r->setMaterialName("buildingMaterials/road");
 
 		engine->entityMgr->player->position = Ogre::Vector3::ZERO;
-		engine->entityMgr->seedCount = 25;
+		engine->gfxMgr->mCamera->setPosition(Ogre::Vector3(engine->entityMgr->player->position.x - 32, engine->gfxMgr->mCamera->getPosition().y, engine->gfxMgr->mCamera->getPosition().z));
+
+		engine->entityMgr->seedCount = 20;
+		engine->entityMgr->birdProbability = 0.99993;
+	}
+
+	if (levelName.compare("level1") == 0)
+	{
+		level = 1;
+		cameraNode->setPosition(0, 200, 500);
+		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(-750, 540, 0), 0);
+		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(-750, 1740, 0), 0);
+		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(-500, 1740, 0), 0);
+
+		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(750, 540, 0), 0);
+		engine->entityMgr->CreateNewBuilding(Ogre::Vector3(1050, 1740, 0), 0);
+		finishLine = Ogre::Vector3(0, 2500, 0);
+
+		engine->gfxMgr->road.normal = Ogre::Vector3::UNIT_Z;
+		engine->gfxMgr->road.d = 0;
+		Ogre::MeshManager::getSingleton().createPlane(
+			"road",
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			//plane,
+			engine->gfxMgr->road,
+			6400, 192, 20, 20,
+			true,
+			1, 20, 1,
+			Ogre::Vector3::UNIT_Y);
+
+		Ogre::Entity* r = engine->gfxMgr->mSceneMgr->createEntity("road");
+		Ogre::SceneNode* r1 = engine->gfxMgr->mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		r1->attachObject(r);
+		r1->setPosition(0, -180, -0.5);
+		r->setCastShadows(false);
+		r->setMaterialName("buildingMaterials/road");
+
+		engine->entityMgr->player->position = Ogre::Vector3::ZERO;
+		engine->gfxMgr->mCamera->setPosition(Ogre::Vector3(engine->entityMgr->player->position.x - 32, engine->entityMgr->player->position.y, engine->gfxMgr->mCamera->getPosition().z));
+
+		engine->entityMgr->seedCount = 30;
+		engine->entityMgr->birdProbability = 0.99989;
 	}
 }

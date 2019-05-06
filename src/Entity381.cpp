@@ -72,6 +72,13 @@ void Entity381::Tick(float dt){
 	}
 }
 
+//FinishLine::FinishLine(Engine *engine, Ogre::Vector3 pos):
+//		Entity381(engine, pos, identity)
+//{
+//	this->meshfilename = "cube.mesh";
+//	this->position = pos;
+//}
+
 //-------------------------------------------------------------------------------------------------------------------------------
 //DDG51::DDG51(Engine *engine, Ogre::Vector3 pos, int ident):
 //		Entity381(engine, pos, ident){

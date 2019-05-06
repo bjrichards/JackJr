@@ -26,6 +26,7 @@ public:
   std::vector<Building*> buildings;
   std::vector<Bird*> birds;
   int seedCount;
+  float birdProbability;
   std::vector<Entity381*> entities;
 
   Ogre::SceneManager *sceneMgr;
@@ -33,11 +34,13 @@ public:
   void Select(int index);
   void CreateNewVine(Ogre::Vector3 pos, int dir);
   void CreateNewBuilding(Ogre::Vector3 pos, int buildingType);
+  void CreateNewFinishLine(Ogre::Vector3 pos);
   void Tick(float dt);
 
 protected:
 
 private:
+  //void CreateNewFinishLine(Ogre::Vector3 pos);
   void CreateEntity(std::string meshfilename, Ogre::Vector3 pos);
   void CreateDDG51(Ogre::Vector3 pos);
   void CreateCarrier(Ogre::Vector3 pos);

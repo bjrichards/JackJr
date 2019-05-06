@@ -36,6 +36,10 @@ protected:
 
     void buttonHit(OgreBites::Button *b);
     void itemSelected(OgreBites::SelectMenu *m);
+    void HowToPlay();
+    void Credits();
+    void LevelCompleted(int score);
+    void endCondition();
 
 public:
 
@@ -54,10 +58,12 @@ public:
 	OgreBites::Label *infoLabel2;
 	OgreBites::Label *infoLabel3;
 //	OgreBites::ProgressBar *Timer;
-	float time = 100;
+	float time = 200;
 	int wholeTime;
-	bool startTimer = false;
+	bool startTimer = false, completed = false;
 	//bool sfxCheck = true;
+	OgreBites::TextBox *instructions, *credits;
+	OgreBites::TextBox *nextLevelWindow;
 
 };
 

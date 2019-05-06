@@ -52,7 +52,12 @@ protected:
 
 };
 
-
+//class FinishLine: public Entity381
+//{
+//public:
+//	FinishLine(Engine *engine, Ogre::Vector3 pos);
+//	virtual ~FinishLine();
+//};
 
 //class Carrier: public Entity381 {
 //public:

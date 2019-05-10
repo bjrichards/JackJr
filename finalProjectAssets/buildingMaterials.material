@@ -640,3 +640,183 @@ material Bird/pecking_02
 		}
 	}
 }
+material PlayerJumping/leftFalling
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerJumping/left/falling.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerJumping/leftLanding
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerJumping/left/landing.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerJumping/rightFalling
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerJumping/right/falling.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerJumping/rightLanding
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerJumping/right/landing.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerWalking/leftWalking00
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerWalking/walkingLeft/00.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerWalking/leftWalking01
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerWalking/walkingLeft/01.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerWalking/leftWalking02
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerWalking/walkingLeft/02.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerWalking/rightWalking00
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerWalking/walkingRight/00.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerWalking/rightWalking01
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerWalking/walkingRight/01.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerWalking/rightWalking02
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerWalking/walkingRight/02.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerStanding/right00
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerStanding/right/00.png
+				scale 1 1
+			}
+		}
+	}
+}
+material PlayerStanding/left00
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture Player/PlayerStanding/left/00.png
+				scale 1 1
+			}
+		}
+	}
+}

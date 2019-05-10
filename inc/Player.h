@@ -24,6 +24,7 @@ public:
 	void MoveLeft(float dt);
 	void Jump();
 	void Tick(float dt);
+	void Animation(float dt);
 	bool CheckForBottomVineCollisions(float dt);
 	bool CheckForTopVineCollisions(float dt);
 	bool CheckForTopBuildingCollisions(float dt);
@@ -38,7 +39,15 @@ public:
 	Ogre::Vector3 gravity;
 
 	float moveSpeed;
+	float animationTimer;
+	float animationTimerSet;
+	int currentAnimation;
+	int facing;
 	bool isFalling;
+	bool wasFalling;
+	bool movingLeft;
+	bool movingRight;
+	bool didMove;
 };
 
 

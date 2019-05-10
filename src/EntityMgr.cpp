@@ -23,7 +23,7 @@ EntityMgr::~EntityMgr(){
 
 void EntityMgr::CreateNewVine(Ogre::Vector3 pos, int dir)
 {
-	Vine* v = new Vine(engine, Ogre::Vector3(pos.x, pos.y, 1.0), dir);
+	Vine* v = new Vine(engine, Ogre::Vector3(pos.x, pos.y, 0.0), dir);
 
 	vines.push_back(v);
 }

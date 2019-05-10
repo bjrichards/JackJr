@@ -104,9 +104,17 @@ void InputMgr::UpdateCamera(float dt){
 void InputMgr::UpdateVelocityAndSelection(float dt){
 	keyboardTimer -= dt;
 	if (mKeyboard->isKeyDown(OIS::KC_D))
+	{
 		engine->entityMgr->player->MoveRight(dt);
+		engine->entityMgr->player->didMove = true;
+	}
 	else if (mKeyboard->isKeyDown(OIS::KC_A))
+	{
 		engine->entityMgr->player->MoveLeft(dt);
+		engine->entityMgr->player->didMove = true;
+	}
+	else
+		engine->entityMgr->player->didMove = false;
 	if (mKeyboard->isKeyDown(OIS::KC_SPACE))
 		engine->entityMgr->player->Jump();
 

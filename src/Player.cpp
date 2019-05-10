@@ -17,6 +17,14 @@ Player::Player(Engine* engine, Ogre::Vector3 pos){
 	this->velocity = Ogre::Vector3::ZERO;
 	this->gravity = Ogre::Vector3(0.0, -1200.0, 0.0);
 	this->isFalling = false;
+	this->animationTimerSet = 0.2;
+	this->animationTimer = this->animationTimerSet;
+	this->movingLeft = false;
+	this->movingRight = false;
+	this->didMove = false;
+	this->wasFalling = false;
+	this->currentAnimation = 0;
+	this->facing = 0;
 
 	playerPlane.normal = Ogre::Vector3::UNIT_Z;
 	playerPlane.d = 0;
@@ -35,7 +43,7 @@ Player::Player(Engine* engine, Ogre::Vector3 pos){
 	sceneNode->attachObject(ogreEntity);
 	sceneNode->setPosition(this->position);
 	ogreEntity->setCastShadows(false);
-	ogreEntity->setMaterialName("buildingMaterials/playerLeft");
+	ogreEntity->setMaterialName("PlayerStanding/left00");
 }
 
 Player::~Player(void){
@@ -44,9 +52,20 @@ Player::~Player(void){
 
 void Player::MoveRight(float dt){
 	Ogre::Vector3 newPosition = position;
+	facing = 1;
+	if (movingRight == false)
+	{
+		if (!isFalling && !wasFalling)
+		{
+			ogreEntity->setMaterialName("PlayerWalking/rightWalking00");
+			currentAnimation = 0;
+		}
+//		currentAnimation = 1;
+		movingRight = true;
+		movingLeft = false;
 
+	}
 	newPosition.x += moveSpeed * dt;
-	ogreEntity->setMaterialName("buildingMaterials/playerRight");
 
 	bool collisionFound = false;
 
@@ -83,9 +102,19 @@ void Player::MoveRight(float dt){
 
 void Player::MoveLeft(float dt){
 	Ogre::Vector3 newPosition = position;
-
+	facing = 0;
+	if (movingLeft == false)
+	{
+		if (!isFalling && !wasFalling)
+		{
+			ogreEntity->setMaterialName("PlayerWalking/leftWalking00");
+			currentAnimation = 0;
+		}
+//		currentAnimation = 1;
+		movingRight = false;
+		movingLeft = true;
+	}
 	newPosition.x -= moveSpeed * dt;
-	ogreEntity->setMaterialName("buildingMaterials/playerLeft");
 
 	bool collisionFound = false;
 
@@ -142,7 +171,11 @@ bool Player::CheckForTopBuildingCollisions(float dt)
 		if (velocity.y < 0)
 		{
 			velocity.y = 0.0;
-			isFalling = false;
+			if (isFalling == true)
+			{
+				isFalling = false;
+				wasFalling = true;
+			}
 		}
 	}
 	return collisionFound;
@@ -165,19 +198,29 @@ void Player::Tick(float dt){
 		CheckForTopBuildingCollisions(dt);
 		Ogre::Vector3 newPosition = position;
 		newPosition.y += velocity.y * dt;
+		animationTimer -= dt;
 		if (velocity.y == 0)
 		{
-			isFalling = false;
+			if (isFalling == true)
+			{
+				isFalling = false;
+				wasFalling = true;
+			}
 		}
-		else
+		else if (velocity.y < 0.0)
 		{
-			isFalling = true;
+			if (newPosition.y >= 0.0)
+				isFalling = true;
 		}
 
 		if (newPosition.y < 0.0)
 		{
 			newPosition.y = 0;
-			isFalling = false;
+			if (isFalling == true)
+			{
+				isFalling = false;
+				wasFalling = true;
+			}
 		}
 		if (isFalling == true)
 		{
@@ -186,6 +229,58 @@ void Player::Tick(float dt){
 		}
 		engine->gfxMgr->mCamera->setPosition(Ogre::Vector3(position.x - 32, engine->gfxMgr->mCamera->getPosition().y, engine->gfxMgr->mCamera->getPosition().z));
 
+		if ((!isFalling && movingRight && !didMove && !wasFalling))
+		{
+			if (animationTimer <= 0)
+			{
+				movingRight = false;
+				ogreEntity->setMaterialName("PlayerStanding/right00");
+			}
+		}
+		else if ((!isFalling && facing == 1 && !didMove && !wasFalling))
+		{
+			if (animationTimer <= 0)
+			{
+				animationTimer = animationTimerSet;
+				ogreEntity->setMaterialName("PlayerStanding/right00");
+			}
+		}
+		else if ((!isFalling && movingLeft && !didMove && !wasFalling))
+		{	if (animationTimer <= 0)
+			{
+				movingLeft = false;
+				ogreEntity->setMaterialName("PlayerStanding/left00");
+			}
+		}
+		else if ((!isFalling && facing == 0 && !didMove && !wasFalling))
+		{
+			if (animationTimer <= 0)
+			{
+				animationTimer = animationTimerSet;
+				ogreEntity->setMaterialName("PlayerStanding/left00");
+			}
+		}
+		if (!isFalling && wasFalling && facing == 0)
+		{
+			wasFalling = false;
+			ogreEntity->setMaterialName("PlayerJumping/leftLanding");
+			animationTimer = animationTimerSet;
+		}
+		else if (!isFalling && wasFalling && facing == 1)
+		{
+			wasFalling = false;
+			ogreEntity->setMaterialName("PlayerJumping/rightLanding");
+			animationTimer = animationTimerSet;
+		}
+		else if (isFalling && movingRight)
+		{
+			ogreEntity->setMaterialName("PlayerJumping/rightFalling");
+		}
+		else if (isFalling && movingLeft)
+		{
+			ogreEntity->setMaterialName("PlayerJumping/leftFalling");
+		}
+		Animation(dt);
 		sceneNode->setPosition(newPosition);
 		this->position = newPosition;
 }
@@ -205,7 +300,11 @@ bool Player::CheckForTopVineCollisions(float dt)
 						{
 							if (velocity.y < 0)
 								velocity.y = 0;
-							isFalling = false;
+							if (isFalling == true)
+							{
+								isFalling = false;
+								wasFalling = true;
+							}
 							return true;
 						}
 					}
@@ -250,4 +349,63 @@ bool Player::IsColliding(Ogre::Vector3 objectPos)
 	}
 
 	return false;
+}
+
+void Player::Animation(float dt)
+{
+	if (animationTimer <= 0.0)
+	{
+		animationTimer = animationTimerSet;
+		if (isFalling)
+		{
+			if (facing == 0)
+				ogreEntity->setMaterialName("PlayerJumping/leftFalling");
+			else
+				ogreEntity->setMaterialName("PlayerJumping/rightFalling");
+		}
+		else if (movingLeft && !wasFalling)
+		{
+			switch (currentAnimation)
+			{
+			case 0:
+				ogreEntity->setMaterialName("PlayerWalking/leftWalking00");
+				currentAnimation = 1;
+				break;
+			case 1:
+				ogreEntity->setMaterialName("PlayerWalking/leftWalking01");
+				currentAnimation = 2;
+				break;
+			case 2:
+				ogreEntity->setMaterialName("PlayerWalking/leftWalking02");
+				currentAnimation = 3;
+				break;
+			case 3:
+				ogreEntity->setMaterialName("PlayerWalking/leftWalking01");
+				currentAnimation = 0;
+				break;
+			}
+		}
+		else if (movingRight && !wasFalling)
+		{
+			switch (currentAnimation)
+			{
+			case 0:
+				ogreEntity->setMaterialName("PlayerWalking/rightWalking00");
+				currentAnimation = 1;
+				break;
+			case 1:
+				ogreEntity->setMaterialName("PlayerWalking/rightWalking01");
+				currentAnimation = 2;
+				break;
+			case 2:
+				ogreEntity->setMaterialName("PlayerWalking/rightWalking02");
+				currentAnimation = 3;
+				break;
+			case 3:
+				ogreEntity->setMaterialName("PlayerWalking/rightWalking01");
+				currentAnimation = 0;
+				break;
+			}
+		}
+	}
 }
